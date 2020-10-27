@@ -1,0 +1,145 @@
+{
+    "name": "Default",
+    "category": "Vehicle",
+    "group": "Tesla",
+    "description": "Tesla Vehicle API auto configuration",
+    "inputs": [
+        {
+            "name": "battery_level",
+            "description": "Battery state of charge percentage",
+            "processList": [
+                {
+                    "process": "log_to_feed",
+                    "arguments": {
+                        "type": "ProcessArg::FEEDID",
+                        "value": "battery_level"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "battery_range",
+            "description": "Possible driving range",
+            "processList": [
+                {
+                    "process": "log_to_feed",
+                    "arguments": {
+                        "type": "ProcessArg::FEEDID",
+                        "value": "battery_range"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "charge_limit_soc",
+            "description": "Set point to charge to",
+            "processList": [
+            ]
+        },
+        {
+            "name": "charge_limit_soc_min",
+            "description": "Minimum possible set point",
+            "processList": [ ]
+        },
+        {
+            "name": "charge_limit_soc_max",
+            "description": "Maximum  possible set point",
+            "processList": [ ]
+        },
+        {
+            "name": "charge_port_latch",
+            "description": "Status of charge cable locked into car",
+            "processList": [ ]
+        },
+       {
+            "name": "charge_rate",
+            "description": "Charge rate in miles/hour",
+            "processList": [ ]
+        },
+
+       {
+            "name": "charging_state",
+            "description": "1 if charging, zero if not",
+            "processList": [ ]
+        },
+        {
+            "name": "charger_voltage",
+            "description": "Incoming EVSE voltage",
+            "processList": [ ]
+        },
+        {
+            "name": "charger_power",
+            "description": "Electrical power of charger kW",
+            "processList": [ 
+ {
+                    "process": "log_to_feed",
+                    "arguments": {
+                        "type": "ProcessArg::FEEDID",
+                        "value": "charger_power"
+                    }
+                }
+
+            ]
+        },
+        {
+            "name": "minutes_to_full_charge",
+            "description": "Number of minutes until charge setpoint is reached",
+            "processList": [ ]
+        },
+
+  {
+            "name": "charge_current_request",
+            "description": "Setpoint for current",
+            "processList": [ ]
+        },
+  {
+            "name": "charge_current_request_max",
+            "description": "Maximum current available from EVSE",
+            "processList": [ ]
+        },
+  {
+            "name": "charger_actual_current",
+            "description": "Current provided by EVSE",
+            "processList": [ ]
+        }
+
+
+    ],
+
+    "feeds": [
+        {
+            "name": "battery_level",
+            "type": "DataType::REALTIME",
+            "engine": "Engine::PHPFINA",
+            "interval": "60",
+            "unit": "%"
+        },
+        {
+            "name": "battery_range",
+            "type": "DataType::REALTIME",
+            "engine": "Engine::PHPFINA",
+            "interval": "60",
+            "unit": ""
+        },
+        {
+            "name": "charger_power",
+            "type": "DataType::REALTIME",
+            "engine": "Engine::PHPFINA",
+            "interval": "30",
+            "unit": "kW"
+        }
+
+    ],
+
+    "control":
+    {
+        "active": {"name":"Active","type":"checkbox","default":1},
+        "period": {"name":"Run period", "type":"time","default":0,"resolution":0.5},
+        "end": {"name":"Complete by", "type":"time","default":0,"resolution":0.5},
+        "repeat": {"type":"weekly-scheduler","default":[1,1,1,1,1,0,0]},
+        "interruptible": {"name":"Ok to interrupt schedule","type":"checkbox","default":0},
+        "runonce": {"type":"","default":true},
+        "basic": {"type":"","default":0},
+        "signal": {"name":"Signal","type":"select","default":"carbonintensity"}
+    }
+}
